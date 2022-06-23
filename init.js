@@ -19,27 +19,21 @@ Create a function named game that takes argument (bestOf)
         run userChoice;
         run function playRound(computerChoice, userChoice);
     return overall result
-
 */
+
 let userWin = 0;
 let computerWin = 0;
+let selectorButtons = document.querySelectorAll('.rps-selector');
 
 function computerPlay(){
-    let randomNumber = Math.floor(Math.random() * 3) + 1;
-    switch (randomNumber) {
-        case 1:
-            return 'scissors';
-            break;
-        case 2:
-            return 'paper';
-            break;
-        case 3:
-            return 'rock';
-    }
+    let randomNumber = Math.floor(Math.random() * 3);
+    let choices = ['scissors', 'paper', 'rock'];
+    return choices[randomNumber];
 }
 
-function userInput (){
-    let theInput = prompt('Scissors, paper or rock?').toLowerCase(); 
+
+/*function userInput (){
+   let theInput = prompt('Scissors, paper or rock?').toLowerCase(); 
     if(theInput === 'scissors' || theInput === 'paper' || theInput === 'rock'){
         return theInput;
     } else {
@@ -48,7 +42,7 @@ function userInput (){
         }
         return theInput;
     }
-}
+}*/
 
 function playRound (user, computer){
     if(user === computer){
@@ -93,7 +87,7 @@ function overallWinner(userWin, computerWin){
     }
 }
 
-function game(bestOf = 3){
+function playGame(bestOf = 3){
     
     for (let i = 0; i < bestOf; i++) {
 
@@ -122,6 +116,11 @@ function game(bestOf = 3){
 
 }
 
-game();
-
+selectorButtons.forEach(button => button.addEventListener('click', () => {
+    let playerChoice = button.querySelector('p').innerText.toLowerCase();
+    let computerChoice = computerPlay();
+    console.log(playerChoice);
+    console.log(computerChoice);
+    console.log(playRound(playerChoice, computerChoice));
+}));
 
