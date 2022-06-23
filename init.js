@@ -93,14 +93,6 @@ function overallWinner(userWin, computerWin){
     }
 }
 
-/*
-let userChoice = userInput();
-console.log(`The users choice is ${userChoice}`);
-
-let computerChoice = computerPlay();
-console.log(`The computers choice is ${computerChoice}`);
-*/
-
 function game(bestOf = 3){
     
     for (let i = 0; i < bestOf; i++) {
