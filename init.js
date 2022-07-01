@@ -1,48 +1,16 @@
-/*
-Create a function named computerPlay that
-    generates a random number between 1 and 3 stored in variable randomNumber;
-    convert random number to rock, paper or scissors stored in variable choice;
-    return choice;
-
-Create user input prompt with three choices (rock, paper or scissors) and store in variable userChoice;
-    Make user input case insensitive, convert to all lower case;
-
-Create a function named playRound that
-    takes two parameters (computerChoice, userChoice);
-    compares the parameters to determine a winner;
-        if user 
-    return the result e.g "You lose, paper beats rock!"
-
-Create a function named game that takes argument (bestOf)
-    Execute a loop using bestOf argument
-        run computerPlay function and store result in computerChoice variable;
-        run userChoice;
-        run function playRound(computerChoice, userChoice);
-    return overall result
-*/
-
 let userWin = 0;
 let computerWin = 0;
-let selectorButtons = document.querySelectorAll('.rps-selector');
+const selectorButtons = document.querySelectorAll('.rps-selector');
+let gamesPlayed = 0;
+const resultsDiv = document.querySelector('.display-results');
+const resultsText = document.createElement('p');
 
 function computerPlay(){
     let randomNumber = Math.floor(Math.random() * 3);
+    console.log(`random number is ${randomNumber}`);
     let choices = ['scissors', 'paper', 'rock'];
     return choices[randomNumber];
 }
-
-
-/*function userInput (){
-   let theInput = prompt('Scissors, paper or rock?').toLowerCase(); 
-    if(theInput === 'scissors' || theInput === 'paper' || theInput === 'rock'){
-        return theInput;
-    } else {
-        while(theInput !== 'scissors' && theInput !== 'paper' && theInput !== 'rock'){
-            theInput = prompt('please try again');
-        }
-        return theInput;
-    }
-}*/
 
 function playRound (user, computer){
     if(user === computer){
@@ -77,6 +45,13 @@ function playRound (user, computer){
     }
 }
 
+function resetGame(){
+    gamesPlayed = 0;
+    userWin = 0;
+    computerWin = 0;
+    resultsDiv.removeChild(resultsDiv.firstChild);
+}
+
 function overallWinner(userWin, computerWin){
     if(userWin === computerWin){
         return "It's a tie game, guess you'll have to play again!"
@@ -87,40 +62,64 @@ function overallWinner(userWin, computerWin){
     }
 }
 
-function playGame(bestOf = 3){
+// function playGame(bestOf = 5){
     
-    for (let i = 0; i < bestOf; i++) {
+//     for (let i = 0; i < bestOf; i++) {
 
-        let userChoice = userInput();
-        let computerChoice = computerPlay();
-        let theResult = playRound(userChoice, computerChoice);
+//         let userChoice = userInput();
+//         let computerChoice = computerPlay();
+//         let theResult = playRound(userChoice, computerChoice);
 
-        console.log(
-            `
-            This round:
-            User: ${userChoice}
-            Computer: ${computerChoice}
+//         console.log(
+//             `
+//             This round:
+//             User: ${userChoice}
+//             Computer: ${computerChoice}
 
-            Result:
-            ${theResult}
+//             Result:
+//             ${theResult}
 
-            Score:
-            User: ${userWin}
-            Computer: ${computerWin}
-            `
-        );
+//             Score:
+//             User: ${userWin}
+//             Computer: ${computerWin}
+//             `
+//         );
 
-     }
+//      }
 
-     console.log(overallWinner(userWin, computerWin));
+//      console.log(overallWinner(userWin, computerWin));
 
-}
+// }
 
 selectorButtons.forEach(button => button.addEventListener('click', () => {
     let playerChoice = button.querySelector('p').innerText.toLowerCase();
     let computerChoice = computerPlay();
-    console.log(playerChoice);
-    console.log(computerChoice);
-    console.log(playRound(playerChoice, computerChoice));
+    let result = playRound(playerChoice, computerChoice);
+    gamesPlayed++;
+
+    console.log(
+        `
+        Player: ${playerChoice}
+        Computer: ${computerChoice}
+        Result: ${result}
+        Score: ${computerWin} - ${userWin}
+        Gamer Played: ${gamesPlayed}
+        `
+    )
+
+    if (gamesPlayed < 3) {
+        resultsText.textContent = `Players choice is: ${playerChoice}
+        Computer choice is ${computerChoice}
+        The result is: ${result}`
+    } else {
+        resultsText.textContent = `Players choice is: ${playerChoice}
+        Computer choice is ${computerChoice}
+        The result is: ${result}
+        ${overallWinner(userWin, computerWin)}`
+    }
+    
+    resultsDiv.appendChild(resultsText);
+    
 }));
 
+document.querySelector('.reset').addEventListener('click', resetGame);
