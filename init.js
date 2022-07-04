@@ -62,50 +62,11 @@ function overallWinner(userWin, computerWin){
     }
 }
 
-// function playGame(bestOf = 5){
-    
-//     for (let i = 0; i < bestOf; i++) {
-
-//         let userChoice = userInput();
-//         let computerChoice = computerPlay();
-//         let theResult = playRound(userChoice, computerChoice);
-
-//         console.log(
-//             `
-//             This round:
-//             User: ${userChoice}
-//             Computer: ${computerChoice}
-
-//             Result:
-//             ${theResult}
-
-//             Score:
-//             User: ${userWin}
-//             Computer: ${computerWin}
-//             `
-//         );
-
-//      }
-
-//      console.log(overallWinner(userWin, computerWin));
-
-// }
-
 selectorButtons.forEach(button => button.addEventListener('click', () => {
     let playerChoice = button.querySelector('p').innerText.toLowerCase();
     let computerChoice = computerPlay();
     let result = playRound(playerChoice, computerChoice);
     gamesPlayed++;
-
-    console.log(
-        `
-        Player: ${playerChoice}
-        Computer: ${computerChoice}
-        Result: ${result}
-        Score: ${computerWin} - ${userWin}
-        Gamer Played: ${gamesPlayed}
-        `
-    )
 
     if (gamesPlayed < 3) {
         resultsText.textContent = `Players choice is: ${playerChoice}

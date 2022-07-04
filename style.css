@@ -21,6 +21,11 @@
     margin-bottom: 40px;
 }
 
+.display-results {
+    display: flex;
+    min-height: 70px;
+}
+
 button {
     height: 50px;
     padding: 0 20px;
