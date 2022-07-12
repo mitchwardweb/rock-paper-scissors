@@ -7,7 +7,6 @@ const resultsText = document.createElement('p');
 
 function computerPlay(){
     let randomNumber = Math.floor(Math.random() * 3);
-    console.log(`random number is ${randomNumber}`);
     let choices = ['scissors', 'paper', 'rock'];
     return choices[randomNumber];
 }
@@ -69,7 +68,7 @@ selectorButtons.forEach(button => button.addEventListener('click', () => {
     gamesPlayed++;
 
     if (gamesPlayed < 3) {
-        resultsText.textContent = `Players choice is: ${playerChoice}
+        resultsText.textContent = `Players choice is: ${playerChoice}.
         Computer choice is ${computerChoice}
         The result is: ${result}`
     } else {
@@ -84,3 +83,4 @@ selectorButtons.forEach(button => button.addEventListener('click', () => {
 }));
 
 document.querySelector('.reset').addEventListener('click', resetGame);
+
